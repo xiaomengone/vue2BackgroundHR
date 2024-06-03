@@ -6,13 +6,33 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { apiGetUser } from '@/api/user'
 
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      userInfo: {}
+    }
+  },
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    ...mapGetters(['name'])
+  },
+  mounted() {
+    this.getUserInfo()
+  },
+  methods: {
+    getUserInfo() {
+      apiGetUser()
+        .then((res) => {
+          console.log('请求得到的值', res.data)
+          this.userInfo = res.data
+          this.$store.commit('user/setHeadPort', { staffPhoto: res.data.staffPhoto, username: res.data.username })
+        })
+        .catch(() => {
+          console.log('失败1')
+        })
+    }
   }
 }
 </script>

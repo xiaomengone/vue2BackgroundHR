@@ -1,6 +1,5 @@
 module.exports = {
-
-  title: 'Vue Admin Template',
+  title: 'vue2后台项目',
 
   /**
    * @type {boolean} true | false
