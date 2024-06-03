@@ -16,7 +16,7 @@ const mutations = {
   },
   setHeadPort(state, val) {
     state.headPort = val
-    setHeadPortrait('val')
+    setHeadPortrait(val)
   }
 }
 
