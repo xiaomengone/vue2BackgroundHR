@@ -30,7 +30,7 @@
     </div>
     <div>
       <!-- 修改密码弹出框 -->
-      <el-dialog title="修改密码" :visible.sync="dialogVisible" width="500px" :before-close="handleClose">
+      <el-dialog title="修改密码" :visible.sync="dialogVisible" width="500px">
         <div>
           <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
             <el-form-item label="原密码" prop="oldPassword">
