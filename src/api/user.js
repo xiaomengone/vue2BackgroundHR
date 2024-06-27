@@ -1,21 +1,32 @@
 import request from '@/utils/request'
 
-export function login(data) {
+export function login(req) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/sys/login',
     method: 'post',
-    data
+    data: {
+      mobile: req.userPhone,
+      password: req.userPassword
+    }
   })
 }
 
-export function getInfo(token) {
+export function apiGetUser() {
   return request({
-    url: '/vue-admin-template/user/info',
-    method: 'get',
-    params: { token }
+    url: '/sys/profile',
+    method: 'Get'
   })
 }
-
+export function apiUpatePassword(req) {
+  return request({
+    url: '/sys/user/updatePass',
+    method: 'PUT',
+    data: {
+      oldPassword: req.oldPassword,
+      newPassword: req.newPassword
+    }
+  })
+}
 export function logout() {
   return request({
     url: '/vue-admin-template/user/logout',
