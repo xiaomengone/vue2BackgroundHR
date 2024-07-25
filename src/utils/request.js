@@ -12,6 +12,7 @@ const service = axios.create({
 })
 
 // request interceptor
+// 请求拦截器
 service.interceptors.request.use(
   (config) => {
     if (store.getters.token) {
@@ -25,9 +26,11 @@ service.interceptors.request.use(
 )
 
 // response interceptor
+// 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    const res = response.data // 因为包裹了一层data
+    if (response.data instanceof Blob) return response.data // 二进制流形式
+    const res = response.data // 因为包裹了一层data。。//response.data默认json格式
     if (!res.success) {
       Message({
         message: res.message || 'Error',
@@ -41,9 +44,9 @@ service.interceptors.response.use(
   },
   (error) => {
     // debugger
+    console.log('请求失败了', error)
     if (error.response.status === 401) {
       store.commit('user/clearToken')
-      console.log('执行了这里')
       store.commit('user/setHeadPort', {})
       router.push('/login')
     }

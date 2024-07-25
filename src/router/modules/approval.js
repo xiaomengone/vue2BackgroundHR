@@ -1,27 +1,42 @@
 import layout from '@/layout'
 export default {
-  path: '/approval',
+  path: '/welfare',
   component: layout,
+  redirect: '/welfare/attendance',
+  name: 'welfare',
+  meta: {
+    title: '福利',
+    icon: 'tree-table'
+  },
   children: [
     {
-      path: '',
-      name: 'approval',
-      component: () => import('@/views/approval/Approval'),
+      // 考勤
+      path: 'attendance',
+      name: 'attendance',
+      component: () => import('@/views/attendance/Attendance'),
       meta: {
-        title: '审批',
-        icon: 'tree-table'
-      },
-      children: [
-        {
-          path: '/test',
-          name: 'test',
-          component: () => import('@/views/Test'),
-          meta: {
-            title: '测试',
-            icon: 'tree-table'
-          }
-        }
-      ]
+        title: '考勤',
+        icon: 'excel'
+      }
+    },
+    {
+      // 工资
+      path: 'salary',
+      name: 'salary',
+      component: () => import('@/views/salary/Salary'),
+      meta: {
+        title: '工资',
+        icon: 'money'
+      }
+    },
+    {
+      path: 'social',
+      name: 'social',
+      component: () => import('@/views/social/Social'),
+      meta: {
+        title: '社保',
+        icon: 'table'
+      }
     }
   ]
 }

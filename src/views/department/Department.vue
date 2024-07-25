@@ -75,9 +75,7 @@ export default {
             this.$message.success('删除成功')
             this.getParList()
           })
-          .catch(() => {
-            this.$message.error('删除失败')
-          })
+          .catch(() => {})
       }
     },
 
@@ -119,9 +117,12 @@ export default {
 
 <style lang="scss" scoped>
 .department {
+  width: 100%;
+  min-height: 90vh;
+  background-color: white;
   .elTree {
-    width: 800px;
-    margin: 80px 100px;
+    width: 850px;
+    // margin: 80px 100px;
   }
   .dropdownTop {
     font-size: 16px;

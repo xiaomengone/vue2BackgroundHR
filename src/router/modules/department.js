@@ -3,9 +3,10 @@ export default {
   // 路由信息
   path: '/department',
   component: layout, // 一级路由
+  redirect: '/department/department',
   children: [
     {
-      path: '', // 二级路由地址为空时 表示 /department 显示一级路由 + 二级路由
+      path: 'department', // 二级路由地址为空时 表示 /department 显示一级路由 + 二级路由
       component: () => import('@/views/department/Department'),
       name: 'department', // 可以用来跳转 也可以标记路由
       meta: {
