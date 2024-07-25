@@ -41,16 +41,14 @@ export default {
     },
     async getTableList(req) {
       const res = await apiGetEmployeeList(req)
-      console.log('哈1', res)
       const { data } = res
       this.total = data.total
-      console.log('this.total', this.total)
       this.tableList = data.rows
-      console.log('表格的值是', this.tableList)
+      // console.log('表格的值是', this.tableList)
     },
     handleSelectionChange() {},
     handleNodeClick(data) {
-      console.log('点击了结点', data)
+      // console.log('点击了结点', data)
       this.tableReq = {
         page: 1,
         pagesize: 10,
