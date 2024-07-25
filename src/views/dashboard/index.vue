@@ -25,7 +25,6 @@ export default {
     getUserInfo() {
       apiGetUser()
         .then((res) => {
-          console.log('请求得到的值', res.data)
           this.userInfo = res.data
           this.$store.commit('user/setHeadPort', { staffPhoto: res.data.staffPhoto, username: res.data.username })
         })

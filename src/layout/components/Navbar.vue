@@ -7,7 +7,7 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img v-if="headPort.staffPhoto" :src="headPort.staffPhoto" class="user-avatar" />
+          <img v-if="headPort?.staffPhoto" :src="headPort?.staffPhoto" class="user-avatar" />
           <div v-else class="noAvatar">{{ headPort.username?.slice(0, 1) }}</div>
           <div class="user-avatarText">{{ headPort.username }}</div>
           <i class="el-icon-caret-bottom" />
