@@ -4,7 +4,7 @@
     <div class="form">
       <h1>登录</h1>
       <el-card shadow="never" class="login-card">
-        <!--登录表单-->
+        <!--登录表单1-->
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" class="demo-ruleForm">
           <el-form-item prop="userPhone">
             <el-input v-model="ruleForm.userPhone" />
