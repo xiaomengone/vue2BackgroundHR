@@ -12,6 +12,7 @@
           <el-form-item prop="userPassword">
             <el-input v-model="ruleForm.userPassword" />
           </el-form-item>
+          <!-- 123 -->
           <el-form-item prop="isChecked">
             <el-checkbox v-model="ruleForm.isChecked">用户协议</el-checkbox>
           </el-form-item>
