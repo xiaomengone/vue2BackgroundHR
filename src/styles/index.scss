@@ -11,7 +11,8 @@ body {
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
-
+//app-main的高度
+// $base-app-main-height: calc(#{$curHeight} - #{$base-nav-bar-height} - #{$base-tabs-bar-height} - #{$base-padding} - #{$base-padding} - 55px);
 label {
   font-weight: 700;
 }
@@ -53,7 +54,7 @@ div:focus {
     visibility: hidden;
     display: block;
     font-size: 0;
-    content: " ";
+    content: ' ';
     clear: both;
     height: 0;
   }
