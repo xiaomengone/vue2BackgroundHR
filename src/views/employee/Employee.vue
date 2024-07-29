@@ -2,11 +2,14 @@
 import { apiGetPartList } from '@/api/department'
 import { getTreeList } from '@/utils/index'
 import { apiGetEmployeeList, apiGetexcel } from '@/api/employee'
+import Exceport from './components/Exceport.vue'
 
 export default {
   name: '',
+  components: { Exceport },
   data() {
     return {
+      excelOpen: false,
       total: 0,
       setCurrentKey: '',
       tableReq: {
@@ -26,6 +29,7 @@ export default {
       }
     }
   },
+  watch: {},
   mounted() {
     this.getTree()
     this.getTableList(this.tableReq)
@@ -122,6 +126,13 @@ export default {
       //   })
       const res = await apiGetexcel()
       console.log('111res', res)
+    },
+    excelImport() {
+      this.excelOpen = true
+    },
+    uploadSuccess() {
+      // 上传成功
+      this.getTableList(this.tableReq)
     }
   }
 }
@@ -140,7 +151,7 @@ export default {
         <div class="employeeRightUpL"><el-button>群发通知</el-button></div>
         <div class="employeeRightUpR">
           <el-button type="primary" @click="addEmployee">添加员工</el-button>
-          <el-button>excel导入</el-button>
+          <el-button @click="excelImport">excel导入</el-button>
           <el-button @click="excelPort">excel导出</el-button>
         </div>
       </div>
@@ -182,6 +193,7 @@ export default {
         </div>
       </div>
     </div>
+    <Exceport v-model="excelOpen" @uploadSuccess="uploadSuccess" />
   </div>
 </template>
 
