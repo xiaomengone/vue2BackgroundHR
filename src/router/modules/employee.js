@@ -13,7 +13,7 @@ export default {
       }
     },
     {
-      path: 'detail',
+      path: 'detail/:id',
       name: 'detail',
       component: () => import('@/views/employee/components/Detail'),
       meta: {

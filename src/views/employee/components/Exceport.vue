@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 文件上传组件 -->
     <el-dialog title="员工导入" :visible.sync="value" width="30%" :before-close="handleClose">
       <div class="modelport">
         <el-upload ref="uploadDemo" :limit="1" :on-exceed="onExceed" class="upload-demo" :http-request="excelUp" drag action multiple :auto-upload="false" :before-upload="beforeUpload">
