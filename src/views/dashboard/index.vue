@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">name: {{ JSON.stringify(name) }}</div>
   </div>
 </template>
 
@@ -23,14 +23,7 @@ export default {
   },
   methods: {
     getUserInfo() {
-      apiGetUser()
-        .then((res) => {
-          this.userInfo = res.data
-          this.$store.commit('user/setHeadPort', { staffPhoto: res.data.staffPhoto, username: res.data.username })
-        })
-        .catch(() => {
-          console.log('失败1')
-        })
+      this.$store.dispatch('user.getUserInfo')
     }
   }
 }

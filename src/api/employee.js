@@ -84,3 +84,11 @@ export function apiPutUser(id, req) {
     }
   })
 }
+// 分配角色
+export function apiPutAssign(data) {
+  return request({
+    url: '/sys/user/assignRoles',
+    method: 'PUT',
+    data
+  })
+}

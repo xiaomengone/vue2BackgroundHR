@@ -3,7 +3,6 @@ export default {
   path: '/welfare',
   component: layout,
   redirect: '/welfare/attendance',
-  name: 'welfare',
   meta: {
     title: '福利',
     icon: 'tree-table'

@@ -58,6 +58,7 @@ import { mapGetters, mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import { apiUpatePassword } from '@/api/user'
+import { resetRouter } from '@/router/index'
 
 export default {
   components: {
@@ -115,6 +116,7 @@ export default {
     async logout() {
       this.$store.commit('user/clearToken')
       this.$store.commit('user/setHeadPort', {})
+      resetRouter()
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     changePassword() {

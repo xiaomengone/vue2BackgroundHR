@@ -3,12 +3,15 @@ import { apiGetPartList } from '@/api/department'
 import { getTreeList } from '@/utils/index'
 import { apiGetEmployeeList, apiGetexcel, apiDeleteUser } from '@/api/employee'
 import Exceport from './components/Exceport.vue'
+import AssigningRoles from './components/AssigningRoles.vue'
 
 export default {
   name: '',
-  components: { Exceport },
+  components: { Exceport, AssigningRoles },
   data() {
     return {
+      roleAssignId: -1,
+      assigningRoles: false,
       excelOpen: false,
       total: 0,
       setCurrentKey: '',
@@ -146,6 +149,12 @@ export default {
         .catch(() => {
           this.$message.error('删除失败')
         })
+    },
+    handleRole(index, row) {
+      this.roleAssignId = +row.id
+      console.log('传来的值是', this.roleAssignId)
+
+      this.assigningRoles = true
     }
   }
 }
@@ -195,7 +204,7 @@ export default {
               <template slot-scope="scope">
                 <div class="operateTestTotal">
                   <el-button type="text" size="mini" class="operateTest" @click="handleSelect(scope.$index, scope.row)">查看</el-button>
-                  <el-button type="text" size="mini" class="operateTest" @click="handleEdit(scope.$index, scope.row)">角色</el-button>
+                  <el-button type="text" size="mini" class="operateTest" @click="handleRole(scope.$index, scope.row)">角色</el-button>
                   <el-button type="text" size="mini" class="operateTest" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </div>
               </template>
@@ -209,6 +218,7 @@ export default {
       </div>
     </div>
     <Exceport v-model="excelOpen" @uploadSuccess="uploadSuccess" />
+    <AssigningRoles v-model="assigningRoles" :role-assign-id="roleAssignId"></AssigningRoles>
   </div>
 </template>
 

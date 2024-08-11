@@ -1,9 +1,13 @@
 <script>
 import { apiGetList, apiPostRole, apiPutRole, apiDeleteRole } from '@/api/role'
+import AssignPermissionsCOM from './components/AssignPermissions.vue'
+
 export default {
   name: '',
+  components: { AssignPermissionsCOM },
   data() {
     return {
+      roleId: -1,
       rules: {
         name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
         description: [{ required: true, message: '请输入角色描述', trigger: 'blur' }]
@@ -15,6 +19,7 @@ export default {
         state: 1
       },
       total: 0,
+      assignPermissionBool: false,
       tableData: [],
       params: {
         page: 1,
@@ -64,7 +69,8 @@ export default {
       this.getList(this.params)
     },
     assignPermissions(val) {
-      console.log('分配权限', val)
+      this.roleId = val.id
+      this.assignPermissionBool = true
     },
     addRole() {
       this.dialogVisible = true
@@ -164,7 +170,7 @@ export default {
               <el-button type="text" size="small" @click="assignPermissions(row)">分配权限</el-button>
               <el-button type="text" size="small" @click="clickEdit(row)">编辑</el-button>
               <el-popconfirm title="这是一段内容确定删除吗？" @onConfirm="clickdelete(row)">
-                <el-button slot="reference" type="text" size="small">删除</el-button>
+                <el-button slot="reference" type="text" size="small" class="popButn">删除</el-button>
               </el-popconfirm>
             </div>
             <div v-else>
@@ -198,6 +204,8 @@ export default {
         </el-form-item>
       </el-form>
     </el-dialog>
+    <!-- 分配权限 -->
+    <AssignPermissionsCOM v-model="assignPermissionBool" :role-id="roleId"></AssignPermissionsCOM>
   </div>
 </template>
 
@@ -206,5 +214,8 @@ export default {
   margin: 20px 10px;
   padding: 10px;
   background-color: #fff;
+  .popButn {
+    margin-left: 10px;
+  }
 }
 </style>

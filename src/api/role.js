@@ -46,3 +46,25 @@ export function apiDeleteRole(id) {
     }
   })
 }
+// 获取角色列表
+export function apiGetEn() {
+  return request({
+    url: `/sys/role/list/enabled`,
+    method: 'GET'
+  })
+}
+// 获取角色详情
+export function apiGetSysRole(id) {
+  return request({
+    url: `/sys/role/${id}`,
+    method: 'GET'
+  })
+}
+// 分配权限
+export function apiPutAssignPrem(data) {
+  return request({
+    url: `/sys/role/assignPrem`,
+    method: 'PUT',
+    data
+  })
+}

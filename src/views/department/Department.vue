@@ -89,7 +89,7 @@ export default {
 
 <template>
   <div class="department">
-    <el-tree :expand-on-click-node="false" :data="treeList" :props="defaultProps" class="elTree">
+    <el-tree :default-expand-all="true" :expand-on-click-node="false" :data="treeList" :props="defaultProps" class="elTree">
       <div slot-scope="{ node, data }" class="slotScope">
         <el-row justify="space-around" type="flex">
           <el-col :span="17">{{ data.name }}</el-col>

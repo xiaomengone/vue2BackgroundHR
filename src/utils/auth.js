@@ -13,9 +13,3 @@ export function setToken(token) {
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }
-export function setHeadPortrait(headPortrait) {
-  return sessionStorage.setItem('headPortrait', headPortrait)
-}
-export function getHeadPortrait(headPortrait) {
-  return sessionStorage.getItem('headPortrait')
-}
