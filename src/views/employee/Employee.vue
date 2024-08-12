@@ -1,12 +1,18 @@
 <script>
 import { apiGetPartList } from '@/api/department'
 import { getTreeList } from '@/utils/index'
-import { apiGetEmployeeList, apiGetexcel } from '@/api/employee'
+import { apiGetEmployeeList, apiGetexcel, apiDeleteUser } from '@/api/employee'
+import Exceport from './components/Exceport.vue'
+import AssigningRoles from './components/AssigningRoles.vue'
 
 export default {
   name: '',
+  components: { Exceport, AssigningRoles },
   data() {
     return {
+      roleAssignId: -1,
+      assigningRoles: false,
+      excelOpen: false,
       total: 0,
       setCurrentKey: '',
       tableReq: {
@@ -26,18 +32,18 @@ export default {
       }
     }
   },
+  watch: {},
   mounted() {
     this.getTree()
     this.getTableList(this.tableReq)
   },
   created() {
     this.serchInputChange = this.debounce(this.serchInputChange1, 1000)
-    this.handleSelect = this.throttle(this.handleSelect1, 2000)
   },
   methods: {
     // 添加员工
     addEmployee() {
-      this.$router.push('/employee/detail')
+      this.$router.push('/employee/detail/-1')
     },
     async getTableList(req) {
       const res = await apiGetEmployeeList(req)
@@ -83,8 +89,8 @@ export default {
       }
       this.getTableList(this.tableReq)
     },
-    handleSelect1() {
-      console.log('点击了查看')
+    handleSelect(index, row) {
+      this.$router.push(`/employee/detail/${row.id}`)
     },
     debounce(func, delay) {
       // 防抖
@@ -122,6 +128,33 @@ export default {
       //   })
       const res = await apiGetexcel()
       console.log('111res', res)
+    },
+    excelImport() {
+      this.excelOpen = true
+    },
+    uploadSuccess() {
+      // 上传成功
+      this.getTableList(this.tableReq)
+    },
+    handleDelete(index, row) {
+      // 删除员工
+      apiDeleteUser(row.id)
+        .then(() => {
+          this.$message.success('删除成功')
+          if (index === 0) {
+            this.tableReq.page -= 1
+          }
+          this.getTableList(this.tableReq)
+        })
+        .catch(() => {
+          this.$message.error('删除失败')
+        })
+    },
+    handleRole(index, row) {
+      this.roleAssignId = +row.id
+      console.log('传来的值是', this.roleAssignId)
+
+      this.assigningRoles = true
     }
   }
 }
@@ -140,7 +173,7 @@ export default {
         <div class="employeeRightUpL"><el-button>群发通知</el-button></div>
         <div class="employeeRightUpR">
           <el-button type="primary" @click="addEmployee">添加员工</el-button>
-          <el-button>excel导入</el-button>
+          <el-button @click="excelImport">excel导入</el-button>
           <el-button @click="excelPort">excel导出</el-button>
         </div>
       </div>
@@ -151,9 +184,11 @@ export default {
             <el-table-column type="selection" width="55" />
             <el-table-column label="头像" width="90">
               <template slot-scope="scope">
-                <div v-if="scope.row.staffPhoto" class="scopeAva"><img :src="scope.row.staffPhoto" alt="" /></div>
-                <div v-else class="scopeAva scopeAvaText">{{ scope.row.username.slice(0, 1) }}</div></template
-              >
+                <div v-if="scope.row.staffPhoto" class="scopeAva"><img :src="scope.row.staffPhoto" /></div>
+                <div v-else class="scopeAva scopeAvaText">
+                  {{ scope.row.username.slice(0, 1) }}
+                </div>
+              </template>
             </el-table-column>
             <el-table-column prop="username" label="姓名" width="100" />
             <el-table-column prop="mobile" label="手机号" width="130" show-overflow-tooltip />
@@ -168,9 +203,9 @@ export default {
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <div class="operateTestTotal">
-                  <div class="operateTest" @click="handleSelect(scope.$index, scope.row)">查看</div>
-                  <div class="operateTest" @click="handleEdit(scope.$index, scope.row)">角色</div>
-                  <div class="operateTest" @click="handleDelete(scope.$index, scope.row)">删除</div>
+                  <el-button type="text" size="mini" class="operateTest" @click="handleSelect(scope.$index, scope.row)">查看</el-button>
+                  <el-button type="text" size="mini" class="operateTest" @click="handleRole(scope.$index, scope.row)">角色</el-button>
+                  <el-button type="text" size="mini" class="operateTest" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </div>
               </template>
             </el-table-column>
@@ -182,6 +217,8 @@ export default {
         </div>
       </div>
     </div>
+    <Exceport v-model="excelOpen" @uploadSuccess="uploadSuccess" />
+    <AssigningRoles v-model="assigningRoles" :role-assign-id="roleAssignId"></AssigningRoles>
   </div>
 </template>
 
@@ -199,6 +236,9 @@ export default {
   }
   .el-pagination {
     font-size: 20px;
+  }
+  .el-button--default {
+    margin: 0 4px !important;
   }
 }
 .employee {

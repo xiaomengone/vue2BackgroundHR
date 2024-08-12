@@ -1,11 +1,17 @@
-import { getToken, setToken, removeToken, getHeadPortrait, setHeadPortrait } from '@/utils/auth'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+import { apiGetUser } from '@/api/user'
+import { constantRoutes } from '@/router/index'
 // import request from '@/utils/request'
 
 const state = {
   token: getToken(),
-  headPort: getHeadPortrait()
+  headPort: {},
+  routes: [...constantRoutes]
 }
 const mutations = {
+  setRoutes(state, val) {
+    state.routes = [...val, ...constantRoutes]
+  },
   setToken1(state, val) {
     state.token = val
     setToken(val)
@@ -15,12 +21,18 @@ const mutations = {
     removeToken()
   },
   setHeadPort(state, val) {
+    console.log('传过来的值是', val)
     state.headPort = val
-    setHeadPortrait(val)
   }
 }
 
-const actions = {}
+const actions = {
+  async getUserInfo(ctx, val) {
+    const res = await apiGetUser()
+    ctx.commit('setHeadPort', res.data)
+    return res.data
+  }
+}
 
 export default {
   namespaced: true,
