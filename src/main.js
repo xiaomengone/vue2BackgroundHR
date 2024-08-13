@@ -14,6 +14,16 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
+// 自定义指令开始
+Vue.directive('addPerson', {
+  inserted(el, binding) {
+    const arr = store.state.user.headPort?.roles?.points || []
+    if (!arr.includes(binding.value)) {
+      el.remove() // 没有权限就删除
+    }
+  }
+})
+// 自定义指令结束
 
 /**
  * If you don't want to use mock-server

@@ -9,7 +9,14 @@ export default {
 </script>
 
 <template>
-  <div>salary</div>
+  <div class="salary">工资</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.salary {
+  display: flex;
+  width: 100%;
+  min-height: 90vh;
+  background-color: white;
+}
+</style>

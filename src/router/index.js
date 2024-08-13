@@ -6,24 +6,11 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 import department from '@/router/modules/department'
-import approval from '@/router/modules/approval'
 import employee from '@/router/modules/employee'
 import permission from '@/router/modules/permission'
 import role from '@/router/modules/role'
 
 export const constantRoutes = [
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  approval, // 福利
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
-
   {
     path: '/',
     component: Layout,
@@ -36,19 +23,29 @@ export const constantRoutes = [
         meta: { title: '首页', icon: 'dashboard' }
       }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
   }
   // 404 page must be placed at the end !!
 ]
 export const asyncRoutes = [
   department, // 组织
-  role, // 角色
   employee, // 员工
+  role, // 角色
   permission // 权限
 ]
 
 const createRouter = () =>
   new Router({
-    // mode: 'history', // require service support
+    mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
   })

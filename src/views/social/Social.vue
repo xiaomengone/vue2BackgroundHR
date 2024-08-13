@@ -9,7 +9,14 @@ export default {
 </script>
 
 <template>
-  <div>社保</div>
+  <div class="social">社保</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.social {
+  display: flex;
+  width: 100%;
+  min-height: 90vh;
+  background-color: white;
+}
+</style>

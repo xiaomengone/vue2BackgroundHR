@@ -9,7 +9,14 @@ export default {
 </script>
 
 <template>
-  <div>attendance</div>
+  <div class="attendance">考勤</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.attendance {
+  display: flex;
+  width: 100%;
+  min-height: 90vh;
+  background-color: white;
+}
+</style>
