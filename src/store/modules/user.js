@@ -22,6 +22,7 @@ const mutations = {
     removeToken()
   },
   setHeadPort(state, val) {
+    console.log('传过来的值是', val)
     state.headPort = val
   }
 }
