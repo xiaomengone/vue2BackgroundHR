@@ -1,12 +1,11 @@
 import router from './router'
 import store from './store'
-import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-import { apiGetUser } from '@/api/user'
 import { asyncRoutes } from '@/router/index'
+import approval from '@/router/modules/approval'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -37,9 +36,7 @@ router.beforeEach(async (to, from, next) => {
         const filterAsyncRoutes = asyncRoutes.filter((item) => {
           return roles.menus.includes(item.name)
         })
-        console.log('筛选后的路由是', filterAsyncRoutes)
-
-        router.addRoutes([...filterAsyncRoutes, { path: '*', redirect: '/404', hidden: true }])
+        router.addRoutes([...filterAsyncRoutes, { path: '*', redirect: '/404', hidden: true }, approval])
         next(to.path)
         store.commit('user/setRoutes', filterAsyncRoutes)
       } else {

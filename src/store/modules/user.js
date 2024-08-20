@@ -2,6 +2,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 import { apiGetUser } from '@/api/user'
 import { constantRoutes } from '@/router/index'
 // import request from '@/utils/request'
+import approval from '@/router/modules/approval'
 
 const state = {
   token: getToken(),
@@ -10,7 +11,7 @@ const state = {
 }
 const mutations = {
   setRoutes(state, val) {
-    state.routes = [...val, ...constantRoutes]
+    state.routes = [...constantRoutes, ...val, approval]
   },
   setToken1(state, val) {
     state.token = val
@@ -29,6 +30,8 @@ const mutations = {
 const actions = {
   async getUserInfo(ctx, val) {
     const res = await apiGetUser()
+    console.log('用户信息', res)
+
     ctx.commit('setHeadPort', res.data)
     return res.data
   }

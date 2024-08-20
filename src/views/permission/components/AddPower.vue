@@ -64,7 +64,8 @@ export default {
           name: '',
           code: '',
           description: '',
-          enVisible: '1'
+          enVisible: '1',
+          type: 1
         }
       } else if (newVal.type === 3) {
         // 操作-添加按钮
@@ -72,7 +73,8 @@ export default {
           name: '',
           code: '',
           description: '',
-          enVisible: '1'
+          enVisible: '1',
+          type: 2
         }
       }
     }
@@ -99,8 +101,7 @@ export default {
             // console.log('左上角添加权限')
             const req = {
               ...this.ruleForm,
-              pid: this.addPowerVal.pid,
-              type: 1
+              pid: this.addPowerVal.pid
             }
             // console.log('请求的值是', req)
             await apiPostPer(req)
@@ -111,8 +112,7 @@ export default {
             // console.log('操作里的添加')
             const req = {
               ...this.ruleForm,
-              pid: this.addPowerVal.pid,
-              type: 0
+              pid: this.addPowerVal.pid
             }
             // console.log('添加的值是', req)
             await apiPostPer(req)

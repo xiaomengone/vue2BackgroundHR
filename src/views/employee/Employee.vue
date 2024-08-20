@@ -172,7 +172,7 @@ export default {
       <div class="employeeRightUp">
         <div class="employeeRightUpL"><el-button>群发通知</el-button></div>
         <div class="employeeRightUpR">
-          <el-button type="primary" @click="addEmployee">添加员工</el-button>
+          <el-button v-addPerson="'addPerson'" type="primary" @click="addEmployee">添加员工</el-button>
           <el-button @click="excelImport">excel导入</el-button>
           <el-button @click="excelPort">excel导出</el-button>
         </div>
